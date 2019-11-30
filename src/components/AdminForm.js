@@ -3,6 +3,7 @@ import React from 'react'
 const AdminForm = ({
     id: key,
     updateRecipe,
+    removeRecipe,
     recipes,
 }) => {
     const recipe = recipes[key]
@@ -27,7 +28,7 @@ const AdminForm = ({
                 <textarea value={recipe.instructions} onChange={e => handleChange(e, key)} name="instructions" rows="15" placeholder="Liste des instructions" />
 
             </form>
-            <button>Supprimer</button>
+            <button onClick={() => removeRecipe(key)}>Supprimer</button>
         </div>
     )
 }
