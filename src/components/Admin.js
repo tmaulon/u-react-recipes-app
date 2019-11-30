@@ -5,7 +5,7 @@ class Admin extends Component {
         return (
             <footer>
                 <button
-                    onClick={this.props.chargerExemple}
+                    onClick={this.props.loadExemple}
                 >
                     Remplir
                 </button>

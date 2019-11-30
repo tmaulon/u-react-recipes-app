@@ -4,16 +4,16 @@ import './App.css'
 
 import Header from './components/Header'
 import Admin from './components/Admin'
-import recettes from './recettes'
+import recipes from './recipes'
 
 class App extends Component {
   state = {
     pseudo: this.props.match.params.pseudo,
-    recettes: {}
+    recipes: {}
   }
 
-  chargerExemple = () => {
-    this.setState({ recettes })
+  loadExemple = () => {
+    this.setState({ recipes })
   }
 
   render() {
@@ -26,7 +26,7 @@ class App extends Component {
           </div>
         </div>
         <Admin
-          chargerExemple={this.chargerExemple}
+          loadExemple={this.loadExemple}
         />
       </div>
     )
