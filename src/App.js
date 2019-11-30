@@ -4,6 +4,7 @@ import './App.css'
 
 import Header from './components/Header'
 import Admin from './components/Admin'
+import Card from './components/Card'
 import recipes from './recipes'
 
 class App extends Component {
@@ -17,13 +18,15 @@ class App extends Component {
   }
 
   render() {
+    const cards = Object.keys(this.state.recipes)
+      .map(key => <Card key={key} details={this.state.recipes[key]}></Card>)
+
+
     return (
       <div className='box'>
         <Header pseudo={this.state.pseudo} />
         <div className='cards'>
-          <div className='card'>
-            <h2>Une Carte</h2>
-          </div>
+          {cards}
         </div>
         <Admin
           loadExemple={this.loadExemple}
