@@ -7,10 +7,24 @@ import Admin from './components/Admin'
 import Card from './components/Card'
 import recipes from './recipes'
 
+// firebase
+import base from './base'
+
 class App extends Component {
   state = {
     pseudo: this.props.match.params.pseudo,
     recipes: {}
+  }
+
+  componentDidMount() {
+    this.refs = base.syncState(`/${this.state.pseudo}/recipes`, {
+      context: this,
+      state: 'recipes'
+    })
+  }
+
+  componentWillUnmount() {
+    base.removeBinding(this.ref)
   }
 
   loadExemple = () => {
