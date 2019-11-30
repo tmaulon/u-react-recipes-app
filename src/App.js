@@ -24,7 +24,7 @@ class App extends Component {
   }
 
   componentWillUnmount() {
-    base.removeBinding(this.ref)
+    base.removeBinding(this.refs)
   }
 
   addRecipe = recipe => {
@@ -33,7 +33,7 @@ class App extends Component {
     this.setState({ recipes })
   }
 
-  updateRecipe = (newRecipe, key) => {
+  updateRecipe = (key, newRecipe) => {
     const recipes = { ...this.state.recipes }
     recipes[key] = newRecipe
     this.setState({ recipes })

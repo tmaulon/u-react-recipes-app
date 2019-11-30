@@ -11,14 +11,14 @@ class Admin extends Component {
                 <AddRecipe addRecipe={addRecipe} />
                 {
                     Object.keys(recipes)
-                        .map(key => (
+                        .map(key =>
                             <AdminForm
                                 key={key}
                                 id={key}
                                 updateRecipe={updateRecipe}
                                 recipes={recipes}
-                            ></AdminForm>
-                        ))
+                            />
+                        )
                 }
                 <footer>
                     <button
