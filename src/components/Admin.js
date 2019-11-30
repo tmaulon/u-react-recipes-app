@@ -2,9 +2,67 @@ import React, { Component } from 'react'
 
 import AddRecipe from './AddRecipe'
 import AdminForm from './AdminForm'
+import Login from './Login'
+
+// firebase
+import firebase from 'firebase/app'
+import 'firebase/auth'
+import base, { firebaseApp } from '../base'
+
 class Admin extends Component {
+    state = {
+        uid: null,
+        chef: null
+    }
+
+    handleAuth = async authData => {
+        const box = await base.fetch(this.props.pseudo, { context: this })
+
+        if (!box.chef) {
+            await base.post(`${this.props.pseudo}/chef`, {
+                data: authData.user.uid
+            })
+        }
+
+        this.setState({
+            uid: authData.user.uid,
+            chef: box.chef || authData.user.uid
+        })
+
+    }
+
+    facebookAuthenticate = () => {
+        const authProvider = new firebase.auth.FacebookAuthProvider()
+        firebaseApp
+            .auth()
+            .signInWithPopup(authProvider)
+            .then(this.handleAuth)
+    }
+
+    googleAuthenticate = () => {
+        const authProvider = new firebase.auth.GoogleAuthProvider()
+        firebaseApp
+            .auth()
+            .signInWithPopup(authProvider)
+            .then(this.handleAuth)
+    }
+
+
     render() {
         const { recipes, addRecipe, updateRecipe, removeRecipe, loadExemple } = this.props
+
+        // if user not connected 
+        if (!this.state.uid) {
+            return <Login facebookAuthenticate={this.facebookAuthenticate} googleAuthenticate={this.googleAuthenticate} />
+        }
+
+        if (this.state.uid !== this.state.chef) {
+            return (
+                <div>
+                    Ce n'est pas ta boîte à recettes !
+                </div>
+            )
+        }
 
         return (
             <div className="cards">
