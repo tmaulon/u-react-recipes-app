@@ -17,7 +17,7 @@ class Connexion extends React.Component {
     this.setState({ pseudo })
   }
 
-  render () {
+  render() {
     if (this.state.goToApp) {
       return <Redirect push to={`/pseudo/${this.state.pseudo}`} />
     }
