@@ -12,6 +12,9 @@ import Card from './components/Card'
 // HOC
 import withFirebase from './hoc/withFirebase'
 
+// Context
+import ThemeContext from './components/Theme'
+
 const App = ({
   match,
   recipes,
@@ -24,20 +27,22 @@ const App = ({
     .map(key => <Card key={key} details={recipes[key]} />)
 
   return (
-    <div className='box'>
-      <Header pseudo={match.params.pseudo} />
-      <div className='cards'>
-        {cards}
+    <ThemeContext>
+      <div className='box'>
+        <Header pseudo={match.params.pseudo} />
+        <div className='cards'>
+          {cards}
+        </div>
+        <Admin
+          pseudo={match.params.pseudo}
+          recipes={recipes}
+          loadExemple={loadExemple}
+          addRecipe={addRecipe}
+          updateRecipe={updateRecipe}
+          removeRecipe={removeRecipe}
+        />
       </div>
-      <Admin
-        pseudo={match.params.pseudo}
-        recipes={recipes}
-        loadExemple={loadExemple}
-        addRecipe={addRecipe}
-        updateRecipe={updateRecipe}
-        removeRecipe={removeRecipe}
-      />
-    </div>
+    </ThemeContext>
   )
 }
 
